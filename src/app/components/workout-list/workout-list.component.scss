@@ -1,0 +1,5 @@
+.pagination-btn {
+  @apply px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 
+           bg-white hover:bg-blue-500 hover:text-white 
+           disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed;
+}

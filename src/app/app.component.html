@@ -1,0 +1,8 @@
+<app-header></app-header>
+
+<div class="container mx-auto p-4 space-y-6">
+  <h1>Hello, health-tracker</h1> <app-workout-form (workoutAdded)="addWorkout($event)"></app-workout-form>
+
+  <app-workout-list [workoutList]="workoutList" (workoutDeleted)="deleteWorkout($event)">
+  </app-workout-list>
+</div>
