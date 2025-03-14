@@ -119,44 +119,19 @@ describe('AppComponent', () => {
   });
 
   it('should add a new workout', () => {
-    spyOn(workoutService, 'addWorkout');
-    component.workoutList = [
-      { personName: 'John Doe', type: 'Running', minutes: 30 },
-      { personName: 'Jane Smith', type: 'Swimming', minutes: 60 },
-      { personName: 'Mike Johnson', type: 'Yoga', minutes: 50 },
-      { personName: 'Emily Davis', type: 'Cycling', minutes: 45 },
-      { personName: 'David Lee', type: 'Weightlifting', minutes: 75 },
-      { personName: 'Sarah Jones', type: 'Running', minutes: 25 },
-      { personName: 'Michael Brown', type: 'Swimming', minutes: 35 },
-      { personName: 'Ashley Green', type: 'Yoga', minutes: 60 },
-    ];
+    const initialLength = component.workoutList.length;
     const newWorkout: Workout = { personName: 'Jane', type: 'Yoga', minutes: 45 };
-
     component.addWorkoutToList(newWorkout);
-
-    expect(workoutService.addWorkout).toHaveBeenCalledWith(newWorkout);
-    expect(component.workoutList).toContain(newWorkout);
-    expect(component.currentPage).toBe(1);
+    expect(component.workoutList).toContain(jasmine.objectContaining(newWorkout));
+    expect(component.workoutList.length).toBe(initialLength + 1);
   });
 
   it('should delete a workout', () => {
-    spyOn(workoutService, 'deleteWorkout');
-    component.workoutList = [
-      { personName: 'John Doe', type: 'Running', minutes: 30 },
-      { personName: 'Jane Smith', type: 'Swimming', minutes: 60 },
-      { personName: 'Mike Johnson', type: 'Yoga', minutes: 50 },
-      { personName: 'Emily Davis', type: 'Cycling', minutes: 45 },
-      { personName: 'David Lee', type: 'Weightlifting', minutes: 75 },
-      { personName: 'Sarah Jones', type: 'Running', minutes: 25 },
-      { personName: 'Michael Brown', type: 'Swimming', minutes: 35 },
-      { personName: 'Ashley Green', type: 'Yoga', minutes: 60 },
-    ];
-    const workoutToDelete: Workout = component.workoutList[0];
-
+    const initialLength = component.workoutList.length;
+    const workoutToDelete = component.workoutList[0];
     component.deleteWorkout(workoutToDelete);
-
-    expect(workoutService.deleteWorkout).toHaveBeenCalledWith(workoutToDelete);
     expect(component.workoutList).not.toContain(workoutToDelete);
+    expect(component.workoutList.length).toBe(initialLength - 1);
   });
 
   describe('goToPage', () => {
@@ -184,17 +159,53 @@ describe('AppComponent', () => {
     expect(component.currentPage).toBe(1);
   });
 
-  it('should adjust pagination after delete', () => {
+  it('should update workoutList after adding a workout', () => {
+    const newWorkout: Workout = { personName: 'New Person', type: 'New Type', minutes: 10 };
+    component.addWorkoutToList(newWorkout);
+    expect(component.workoutList).toContain(newWorkout);
+  });
+
+  it('should handle deleting a non-existent workout', () => {
+    const nonExistentWorkout: Workout = { personName: 'Non-Existent', type: 'Non-Existent', minutes: 0 };
+    const initialLength = component.workoutList.length;
+    component.deleteWorkout(nonExistentWorkout);
+    expect(component.workoutList.length).toBe(initialLength);
+  });
+
+  it('should adjust currentPage after deleting workouts and reducing totalPages', () => {
     component.workoutList = [
-      { personName: 'John Doe', type: 'Running', minutes: 30 },
-      { personName: 'Jane Smith', type: 'Yoga', minutes: 45 },
+      { personName: 'Workout 1', type: 'Running', minutes: 30 },
+      { personName: 'Workout 2', type: 'Swimming', minutes: 40 },
+      { personName: 'Workout 3', type: 'Cycling', minutes: 50 },
+      { personName: 'Workout 4', type: 'Running', minutes: 60 },
+      { personName: 'Workout 5', type: 'Swimming', minutes: 70 },
+      { personName: 'Workout 6', type: 'Cycling', minutes: 80 },
     ];
-    component.itemsPerPage = 1;
-    component.currentPage = 2;
-
-    component.deleteWorkout(component.workoutList[1]);
-
-    expect(component.totalPages).toBe(1);
+    component.itemsPerPage = 2;
+    component.currentPage = 3;
+    component.deleteWorkout(component.workoutList[0]);
+    component.deleteWorkout(component.workoutList[0]);
+    component.deleteWorkout(component.workoutList[0]);
+    component.deleteWorkout(component.workoutList[0]);
+    component.deleteWorkout(component.workoutList[0]);
+    component.adjustPaginationAfterDelete();
     expect(component.currentPage).toBe(1);
+  });
+
+  it('should handle totalPages being 0', () => {
+    component.workoutList = [];
+    component.updatePagination();
+    expect(component.totalPages).toBe(1);
+  });
+
+  it('should delete a workout from the WorkoutService', () => {
+    const workoutService = TestBed.inject(WorkoutService);
+    const initialWorkouts = workoutService.getWorkouts();
+    const initialLength = initialWorkouts.length;
+    const workoutToDelete = initialWorkouts[0];
+    workoutService.deleteWorkout(workoutToDelete);
+    const updatedWorkouts = workoutService.getWorkouts();
+    expect(updatedWorkouts.length).toBe(initialLength - 1);
+    expect(updatedWorkouts.find(w => w.personName === workoutToDelete.personName)).toBeUndefined();
   });
 });

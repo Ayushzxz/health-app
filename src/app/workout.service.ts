@@ -16,13 +16,13 @@ export class WorkoutService {
     { personName: 'Ashley Green', type: 'Yoga', minutes: 60 },
   ];
 
-  getWorkouts(): Workout[] {
+  getWorkouts(): Workout[]{
     console.log('WorkoutService getWorkouts:', this.workoutList);
-    return this.workoutList; // Return the original array
+    return this.workoutList; 
   }
 
   addWorkout(workout: Workout) {
-    this.workoutList.push(workout); // Push to the original array
+    this.workoutList.push(workout); 
   }
 
   deleteWorkout(workout: Workout) {

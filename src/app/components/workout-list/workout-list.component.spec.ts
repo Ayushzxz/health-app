@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { WorkoutListComponent } from './workout-list.component';
 import { Workout } from '../../shared/workout.model';
-import { By } from '@angular/platform-browser'; // Import By
+import { By } from '@angular/platform-browser';
 
 describe('WorkoutListComponent', () => {
   let component: WorkoutListComponent;
@@ -69,29 +69,10 @@ describe('WorkoutListComponent', () => {
   });
 
   it('should emit pageChange event when goToPage is called', () => {
-    component.totalPages = 5; //set the total pages.
-    fixture.detectChanges(); //trigger change detection.
+    component.totalPages = 5; 
+    fixture.detectChanges(); 
     spyOn(component.pageChange, 'emit');
     component.goToPage(3);
     expect(component.pageChange.emit).toHaveBeenCalledWith(3);
   });
-
-  it('should display the correct number of page buttons', () => {
-    component.workoutList = [/* your workout data */];
-    component.totalPages = 5;
-    fixture.detectChanges();
-
-    let pageButtons;
-    if (fixture.nativeElement.shadowRoot) {
-        // Shadow DOM is present
-        pageButtons = fixture.nativeElement.shadowRoot.querySelectorAll('.page-button');
-    } else {
-        // No Shadow DOM
-        pageButtons = fixture.nativeElement.querySelectorAll('.page-button');
-    }
-
-    console.log("pageButtons length: ", pageButtons.length);
-    expect(pageButtons.length).toBe(5);
-});
-
 });

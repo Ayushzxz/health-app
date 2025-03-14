@@ -86,7 +86,7 @@ export class WorkoutChartComponent implements AfterViewInit, OnChanges {
               },
               tooltip: {
                 callbacks: {
-                  label: function(tooltipItem) {
+                  label: function(tooltipItem: any) {
                     return `${tooltipItem.raw} Minutes`;
                   }
                 }
@@ -108,12 +108,12 @@ export class WorkoutChartComponent implements AfterViewInit, OnChanges {
 
   private generateColorArray(count: number, border: boolean = false): string[] {
     const baseColors = [
-      'rgba(255, 99, 132, 0.2)', // Red
-      'rgba(54, 162, 235, 0.2)', // Blue
-      'rgba(255, 206, 86, 0.2)', // Yellow
-      'rgba(75, 192, 192, 0.2)', // Teal
-      'rgba(153, 102, 255, 0.2)', // Purple
-      'rgba(255, 159, 64, 0.2)', // Orange
+      'rgba(255, 99, 132, 0.2)',
+      'rgba(54, 162, 235, 0.2)',
+      'rgba(255, 206, 86, 0.2)',
+      'rgba(75, 192, 192, 0.2)',
+      'rgba(153, 102, 255, 0.2)',
+      'rgba(255, 159, 64, 0.2)',
     ];
 
     const borderColors = [

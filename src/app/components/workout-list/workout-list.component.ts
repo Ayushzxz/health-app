@@ -109,12 +109,12 @@ export class WorkoutListComponent implements OnChanges {
 
   goToPage(page: number) {
     if (page >= 1 && page <= this.totalPages) {
-      this.pageChange.emit(page); // Make sure this line is present and correct
+      this.pageChange.emit(page); 
     }
   }
   ngOnChanges(changes: SimpleChanges) {
     if (changes['totalPages']) {
-      console.log(this.pages); // Check the contents of pages array
+      console.log(this.pages); 
     }
   }
 }

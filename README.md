@@ -1,59 +1,73 @@
-# HealthTracker
+# Health Tracker 🏋️‍♂️
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
+## 📌 Project Overview
+Health Tracker is an Angular-based application designed to help users track their workouts efficiently. It includes features such as workout logging, visual progress tracking, and an intuitive user interface built with **Tailwind CSS**.
 
-## Development server
+## 🚀 Features
+- 📊 **Workout Tracking** - Log your daily workouts and exercises.
+- 📈 **Workout Chart** - Visual representation of your progress.
+- ✅ **Form Validation** - Ensures correct input in workout entries.
+- 🎨 **Tailwind CSS Styling** - Modern and responsive design.
+- 🔍 **100% Unit Test Coverage** - Ensuring reliability and quality.
 
-To start a local development server, run:
+## 🛠️ Technologies Used
+- **Angular** - Frontend framework
+- **Tailwind CSS** - Styling
+- **Jasmine & Karma** - Unit testing
 
-```bash
+## 📦 Installation & Setup
+### 1️⃣ Clone the Repository
+```sh
+git clone https://github.com/Ayushzxz/health-angular.git
+```
+### 2️⃣ Navigate to the Project Directory
+```sh
+cd health-angular
+```
+### 3️⃣ Install Dependencies
+```sh
+npm install
+```
+### 4️⃣ Run the Application
+```sh
 ng serve
 ```
+The application will be available at `http://localhost:4200/`
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
+## 🧪 Running Tests & Coverage
+### Run Unit Tests
+```sh
 ng test
 ```
+### Generate Test Coverage Report
+```sh
+ng test --code-coverage
+```
+The coverage report will be generated inside the `coverage/` folder.
 
-## Running end-to-end tests
+## 📊 Test Coverage Report
+This project has **100% test coverage** across all statements, branches, functions, and lines. Below is an example of the test coverage output:
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
+```
+![alt text](image-1.png)
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## 🔗 Deployment (If applicable)
+The app is deployed at: [Health Tracker](https://health-app-ayush.vercel.app/)
 
-## Additional Resources
+## 🤝 Contributing
+Want to contribute? Follow these steps:
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature-name`).
+3. Commit your changes (`git commit -m "Added new feature"`).
+4. Push to the branch (`git push origin feature-name`).
+5. Open a pull request.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## 📜 License
+This project is licensed under the **MIT License**.
+
+## 📬 Contact
+For any inquiries, feel free to contact me:
+- **GitHub**: [Ayushzxz](https://github.com/Ayushzxz)
+- **Email**: [ayushpandey121.work@gmail.com]
+

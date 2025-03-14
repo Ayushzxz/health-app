@@ -10,7 +10,7 @@ describe('WorkoutChartComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [WorkoutChartComponent], // Correct: Use imports for standalone components
+      imports: [WorkoutChartComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
 
@@ -24,14 +24,14 @@ describe('WorkoutChartComponent', () => {
 
   it('should create the chart on initialization', () => {
     const createChartSpy = spyOn(component, 'createChart').and.callThrough();
-    fixture.detectChanges(); // Trigger ngAfterViewInit
+    fixture.detectChanges(); 
 
     expect(createChartSpy).toHaveBeenCalled();
     expect(component.chart).toBeTruthy();
   });
 
   it('should update the chart when workoutList changes', () => {
-    fixture.detectChanges(); // Initialize chart
+    fixture.detectChanges(); 
 
     const updateChartSpy = spyOn(component, 'updateChart').and.callThrough();
 
@@ -50,11 +50,17 @@ describe('WorkoutChartComponent', () => {
   });
 
   it('should display an empty chart when no data is provided', () => {
-    fixture.detectChanges(); // Initialize chart
-
+    fixture.detectChanges(); 
     component.workoutList = [];
     component.ngOnChanges();
-
     expect(component.chart.data.labels.length).toBe(0);
+  });
+  it('should format tooltip label correctly', () => {
+    component.workoutList = [{ personName: 'Test Person', type: 'Run', minutes: 30 }];
+    fixture.detectChanges(); 
+    const tooltipItem = { raw: 30 };
+    const labelFunction = component.chart.options.plugins.tooltip.callbacks.label;
+    const result = labelFunction(tooltipItem);
+    expect(result).toBe('30 Minutes');
   });
 });

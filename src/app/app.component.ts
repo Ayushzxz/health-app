@@ -61,7 +61,7 @@ import { WorkoutService } from '../app/workout.service';
       </div>
     </div>
   `,
-  styles: [], // Corrected the missing styles array
+  styles: [], 
 })
 export class AppComponent {
   title = 'health-tracker';
@@ -74,10 +74,10 @@ export class AppComponent {
 
   constructor(private workoutService: WorkoutService) {
     this.workoutList = this.workoutService.getWorkouts();
-    this.updatePagination(); // Call updatePagination on init.
+    this.updatePagination(); 
   }
 
-  get filteredWorkouts(): Workout[] { // Corrected to Workout[]
+  get filteredWorkouts(): Workout[] { 
     return this.workoutList.filter(
       (workout) =>
         workout.personName.toLowerCase().includes(this.searchTerm.toLowerCase()) &&
@@ -85,7 +85,7 @@ export class AppComponent {
     );
   }
 
-  get paginatedWorkouts(): Workout[] { // Corrected to Workout[]
+  get paginatedWorkouts(): Workout[] { 
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = Math.min(startIndex + this.itemsPerPage, this.filteredWorkouts.length);
     this.totalPages = Math.ceil(this.filteredWorkouts.length / this.itemsPerPage);
@@ -95,23 +95,23 @@ export class AppComponent {
 
   addWorkoutToList(workoutData: Workout) {
     this.workoutService.addWorkout(workoutData);
-    this.workoutList = this.workoutService.getWorkouts(); // Update workoutList after adding
+    this.workoutList = this.workoutService.getWorkouts(); 
     this.updatePagination();
   }
 
-  deleteWorkout(workout: Workout) {
-    this.workoutService.deleteWorkout(workout);
-    this.workoutList = this.workoutService.getWorkouts(); // Update workoutList after deleting
-    this.adjustPaginationAfterDelete();
-  }
+  deleteWorkout(workoutToDelete: Workout) {
+    console.log('workoutList before delete:', this.workoutList);
+    this.workoutList = this.workoutList.filter(workout => workout !== workoutToDelete);
+    console.log('workoutList after delete:', this.workoutList);
+}
 
   goToPage(page: number) {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
     } else if (page < 1) {
-      this.currentPage = 1; // Go to the first page if page is less than 1
+      this.currentPage = 1; 
     } else {
-      this.currentPage = this.totalPages; // Go to the last page if page exceeds totalPages
+      this.currentPage = this.totalPages; 
     }
   }
 
@@ -124,10 +124,11 @@ export class AppComponent {
     this.updatePagination();
     this.totalPages = Math.ceil(this.filteredWorkouts.length / this.itemsPerPage);
     if (this.currentPage > this.totalPages) {
-      this.currentPage = this.totalPages; // Adjust to the new totalPages, not just Math.max(1, this.totalPages)
+      this.currentPage = this.totalPages; 
     }
   }
   updatePagination() {
+    console.log("total workouts (filtered): ", this.filteredWorkouts.length, "itemsPerPage: ", this.itemsPerPage);
     this.totalPages = Math.ceil(this.filteredWorkouts.length / this.itemsPerPage);
     if (this.totalPages === 0) {
       this.totalPages = 1;
