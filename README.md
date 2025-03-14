@@ -49,7 +49,7 @@ The coverage report will be generated inside the `coverage/` folder.
 This project has **100% test coverage** across all statements, branches, functions, and lines. Below is an example of the test coverage output:
 
 ```
-![alt text](image-1.png)
+![Test Coverage](assets/Coverage Report.png)
 ```
 
 ## 🔗 Deployment (If applicable)
